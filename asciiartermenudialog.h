@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 /*
 AsciiArter, tool to create ASCII art
-Copyright (C) 2006-2015 Richel Bilderbeek
+Copyright (C) 2006-2016 Richel Bilderbeek
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,10 +41,8 @@ struct AsciiArterMenuDialog final : public MenuDialog
   AsciiArterMenuDialog();
   ~AsciiArterMenuDialog() noexcept {}
   int ExecuteSpecific(const std::vector<std::string>& argv) noexcept override;
-
   About GetAbout() const noexcept override;
   Help GetHelp() const noexcept override;
-  boost::shared_ptr<const Program> GetProgram() const noexcept override;
   std::string GetVersion() const noexcept override;
   std::vector<std::string> GetVersionHistory() const noexcept override;
 

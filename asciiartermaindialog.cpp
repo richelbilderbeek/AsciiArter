@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 /*
 AsciiArter, tool to create ASCII art
-Copyright (C) 2006-2015 Richel Bilderbeek
+Copyright (C) 2006-2016 Richel Bilderbeek
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -91,7 +91,7 @@ void ribi::AsciiArterMainDialog::Test() noexcept
   const std::string temp_filename = fileio::FileIo().GetTempFileName();
   assert(!fileio::FileIo().IsRegularFile(temp_filename));
   {
-    QFile qfile(":/ToolAsciiArter/images/R.png");
+    QFile qfile(":/AsciiArter/images/R.png");
     qfile.copy(temp_filename.c_str());
   }
   assert(fileio::FileIo().IsRegularFile(temp_filename)

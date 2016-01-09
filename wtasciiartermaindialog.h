@@ -84,7 +84,7 @@ struct WtAsciiArterMainDialog : public Wt::WContainerWidget
 
 
   //Returns a Y-X-ordered std::vector of greynesses.
-  static const std::vector<std::vector<double> >
+  static std::vector<std::vector<double>>
     ConvertToGreyYx(const std::string& filename);
 
 };

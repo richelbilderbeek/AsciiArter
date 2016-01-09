@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 /*
 AsciiArter, tool to create ASCII art
-Copyright (C) 2006-2015 Richel Bilderbeek
+Copyright (C) 2006-2016 Richel Bilderbeek
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,7 +36,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "asciiartermaindialog.h"
 #include "fileio.h"
 #include "imagecanvas.h"
-#include "richelbilderbeekprogram.h"
 #include "testtimer.h"
 #include "trace.h"
 #pragma GCC diagnostic pop
@@ -108,7 +107,7 @@ ribi::About ribi::AsciiArterMenuDialog::GetAbout() const noexcept
     "Richel Bilderbeek",
     "AsciiArter",
     "tool to create ASCII art",
-    "the 9th of January 2014",
+    "January 9th 2016",
     "2006-2015",
     "http://www.richelbilderbeek.nl/ToolAsciiArter.htm",
     GetVersion(),
@@ -120,16 +119,9 @@ ribi::About ribi::AsciiArterMenuDialog::GetAbout() const noexcept
   return a;
 }
 
-boost::shared_ptr<const ribi::Program> ribi::AsciiArterMenuDialog::GetProgram() const noexcept
-{
-  const boost::shared_ptr<const ribi::Program> p(new ProgramAsciiArter);
-  assert(p);
-  return p;
-}
-
 std::string ribi::AsciiArterMenuDialog::GetVersion() const noexcept
 {
-  return "6.0";
+  return "7.0";
 }
 
 std::vector<std::string> ribi::AsciiArterMenuDialog::GetVersionHistory() const noexcept
@@ -146,7 +138,8 @@ std::vector<std::string> ribi::AsciiArterMenuDialog::GetVersionHistory() const n
     "2012-07-30: Version 5.0: renamed 'TestAsciiArter' to 'AsciiArter', added menu to desktop version",
     "2012-12-24: Version 5.1: slickened desktop application looks",
     "2013-07-12: Version 5.2: transitioned to Qt5 and Boost 1.54.0",
-    "2013-07-12: Version 6.0: replaced use of AsciiArter class by ImageCanvas"
+    "2013-07-12: Version 6.0: replaced use of AsciiArter class by ImageCanvas",
+    "2016-01-09: Version 7.0: moved to own GitHub",
   };
 }
 
@@ -185,7 +178,7 @@ void ribi::AsciiArterMenuDialog::Test() noexcept
   const std::string temp_filename = fileio::FileIo().GetTempFileName();
   assert(!fileio::FileIo().IsRegularFile(temp_filename));
   {
-    QFile qfile(":/ToolAsciiArter/images/R.png");
+    QFile qfile(":/AsciiArter/images/R.png");
     qfile.copy(temp_filename.c_str());
   }
   assert(fileio::FileIo().IsRegularFile(temp_filename)

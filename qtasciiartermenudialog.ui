@@ -33,7 +33,7 @@ QPushButton { font: 48px, &quot;monospace&quot; }</string>
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="ToolAsciiArter.qrc">:/ToolAsciiArter/images/ToolAsciiArterWelcome.png</pixmap>
+      <pixmap resource="AsciiArter.qrc">:/AsciiArter/images/AsciiArterWelcome.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -74,7 +74,7 @@ QPushButton { font: 48px, &quot;monospace&quot; }</string>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="ToolAsciiArter.qrc"/>
+  <include location="AsciiArter.qrc"/>
  </resources>
  <connections/>
 </ui>

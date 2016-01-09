@@ -43,7 +43,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QImage>
 
 #include "about.h"
-//#include "asciiarter.h"
 #include "asciiartermaindialog.h"
 #include "asciiartermenudialog.h"
 #include "fileio.h"
@@ -68,13 +67,13 @@ ribi::WtAsciiArterMainDialog::WtAsciiArterMainDialog()
   //Create resources
   {
     std::vector<std::string> image_names;
-    image_names.push_back("ToolAsciiArterWelcome.png");
+    image_names.push_back("AsciiArterWelcome.png");
 
     for(const std::string& filename: image_names)
     {
       if (!fileio::FileIo().IsRegularFile(filename))
       {
-        QFile f( (std::string(":/ToolAsciiArter/images/") + filename).c_str() );
+        QFile f( (std::string(":/AsciiArter/images/") + filename).c_str() );
         f.copy(filename.c_str());
       }
       if (!fileio::FileIo().IsRegularFile(filename))
@@ -206,7 +205,7 @@ Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewWelcomeDialog() const
   new Wt::WBreak(dialog);
   new Wt::WBreak(dialog);
   Wt::WGroupBox * const box = new Wt::WGroupBox("Explanation",dialog);
-  box->addWidget(new Wt::WImage("ToolAsciiArterWelcome.png"));
+  box->addWidget(new Wt::WImage("AsciiArterWelcome.png"));
   return dialog;
 }
 
@@ -257,7 +256,7 @@ void ribi::WtAsciiArterMainDialog::OnUploadDone()
 }
 
 //Returns a Y-X-ordered std::vector of greynesses.
-const std::vector<std::vector<double> >
+std::vector<std::vector<double>>
   ribi::WtAsciiArterMainDialog::ConvertToGreyYx(const std::string& filename)
 {
   assert(fileio::FileIo().IsRegularFile(filename));
@@ -266,7 +265,7 @@ const std::vector<std::vector<double> >
   const int maxx = i->width();
   const int n_bytes = i->bytesPerLine() / maxx;
 
-  std::vector<std::vector<double> > v;
+  std::vector<std::vector<double>> v;
   for (int y=0; y!=maxy; ++y)
   {
     v.push_back(std::vector<double>());

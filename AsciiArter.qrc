@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/AsciiArter/images">
+        <file>R.png</file>
+        <file>AsciiArter.png</file>
+        <file>AsciiArterWelcome.png</file>
+    </qresource>
+</RCC>

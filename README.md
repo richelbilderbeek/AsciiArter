@@ -1,5 +1,7 @@
 # AsciiArter
 
+[![Build Status](https://travis-ci.org/richelbilderbeek/AsciiArter.svg?branch=master)](https://travis-ci.org/richelbilderbeek/AsciiArter)
+
 C++ tool to create ASCII art.
 
 ![AsciiArter menu v7.0](Screenshots/AsciiArterMenu_7_0.png)

@@ -5,8 +5,8 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-get install libwt-dev
-  #- sudo apt-get install witty-dev
+  #- sudo apt-get install libwt-dev # conflicts
+  #- sudo apt-get install witty-dev # conflicts
   - sudo pip install codecov # From https://github.com/travis-ci/travis-ci/issues/1705
   - sudo apt-get update -qq
 
@@ -19,6 +19,7 @@ addons:
     - gcc-4.8
     - g++-4.8
     - libboost1.55-all-dev
+    - libwt-dev
 
 script: 
  - ./build.sh

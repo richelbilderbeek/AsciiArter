@@ -33,3 +33,8 @@ release/
 ui_*
 object_script*
 *_plugin_import.cpp
+AsciiArterConsole
+AsciiArterDesktop
+moc_*
+ui_*
+qrc_*

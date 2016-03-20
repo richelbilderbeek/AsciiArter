@@ -11,3 +11,6 @@ include(../RibiClasses/CppImageCanvas/CppImageCanvas.pri)
 include(AsciiArterDesktop.pri)
 
 SOURCES += qtmain.cpp
+
+# Thanks to Qt
+QMAKE_CXXFLAGS += -Wno-unused-variable

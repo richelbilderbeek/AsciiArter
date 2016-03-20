@@ -13,3 +13,6 @@ include(../RibiClasses/CppTextCanvas/CppTextCanvas.pri)
 include(AsciiArterWebsite.pri)
 
 SOURCES += wtmain.cpp
+
+# Thanks to Qt
+QMAKE_CXXFLAGS += -Wno-unused-variable

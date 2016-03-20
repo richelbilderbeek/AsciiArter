@@ -9,3 +9,6 @@ include(../RibiClasses/CppXml/CppXml.pri)
 include(AsciiArterConsole.pri)
 
 SOURCES += main.cpp
+
+# Thanks to Qt
+QMAKE_CXXFLAGS += -Wno-unused-variable

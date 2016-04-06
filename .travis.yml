@@ -8,8 +8,8 @@ before_install:
   - sudo apt-get update -qq
 
 install: 
- - sudo apt-get install -qq g++-5
- - sudo apt-get install witty-dev
+  - sudo apt-get install -qq g++-5
+  # - sudo apt-get install witty-dev
 
 addons:
   apt:
@@ -21,8 +21,11 @@ addons:
     - g++-5
     - libboost1.55-all-dev
 
-script: 
- - ./build.sh
+before_script: 
+  - ./download_other_githubs.sh
 
-after_success:
-  - codecov
+script: 
+  - ./build_console.sh
+  - ./build_desktop.sh
+  # - ./build_website.sh
+  # - codecov

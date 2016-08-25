@@ -29,6 +29,7 @@ script:
   - ./build_console.sh
   - ./build_desktop.sh
   # - ./build_website.sh
+  - ./AsciiArterConsole
   - ./get_code_cov.sh
   - codecov
 

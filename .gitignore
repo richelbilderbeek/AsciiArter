@@ -38,3 +38,5 @@ AsciiArterDesktop
 moc_*
 ui_*
 qrc_*
+*.gcno
+*.gcda

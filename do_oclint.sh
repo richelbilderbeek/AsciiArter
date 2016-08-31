@@ -10,6 +10,10 @@ h_files=`ls *.h | egrep -v "^ui_.*\.h$"`
   -- \
   -c -std=c++11 -fPIC \
   -I../RibiClasses/CppAbout \
+<<<<<<< HEAD
+=======
+  -I../ConceptMap \
+>>>>>>> 672570d87b1ed76e9848c4ea0445c9bad2e5e258
   -I../RibiClasses/CppContainer \
   -I../RibiClasses/CppCounter \
   -I../RibiClasses/CppFuzzy_equal_to \
@@ -18,10 +22,17 @@ h_files=`ls *.h | egrep -v "^ui_.*\.h$"`
   -I../RibiClasses/CppTestTimer \
   -I../RibiClasses/CppFileIo \
   -I../RibiClasses/CppMenuDialog \
+<<<<<<< HEAD
   -I../RibiClasses/CppMusic \
   -I../RibiClasses/CppPlane \
   -I../RibiClasses/CppQtAboutDialog \
   -I../RibiClasses/CppQtArrowItem \
+=======
+  -I../RibiClasses/CppPlane \
+  -I../RibiClasses/CppQtAboutDialog \
+  -I../RibiClasses/CppQtArrowItem \
+  -I../QtConceptMap \
+>>>>>>> 672570d87b1ed76e9848c4ea0445c9bad2e5e258
   -I../RibiClasses/CppQtHideAndShowDialog \
   -I../RibiClasses/CppQtKeyboardFriendlyGraphicsView \
   -I../RibiClasses/CppQtQuadBezierArrowItem \
@@ -51,7 +62,11 @@ fail=`egrep "Compiler Errors" oclint.log | wc -l`
 if [ $fail -eq 1 ]; 
 then
   echo "OCLint: Compiler error"
+<<<<<<< HEAD
   # exit 1
+=======
+  exit 1
+>>>>>>> 672570d87b1ed76e9848c4ea0445c9bad2e5e258
 else
   echo "OCLint: OK"
 fi
@@ -65,5 +80,9 @@ then
   echo "OCLint: OK"
 else
   echo "OCLint: Fail"
+<<<<<<< HEAD
   # exit 1
+=======
+  exit 1
+>>>>>>> 672570d87b1ed76e9848c4ea0445c9bad2e5e258
 fi

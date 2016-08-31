@@ -40,3 +40,5 @@ ui_*
 qrc_*
 *.gcno
 *.gcda
+*.tar.gz
+oclint-0.10.3/

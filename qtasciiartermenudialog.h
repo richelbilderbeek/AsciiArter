@@ -34,7 +34,7 @@ namespace ribi {
 
 class QtAsciiArterMenuDialog : public QtHideAndShowDialog
 {
-  Q_OBJECT
+  Q_OBJECT //!OCLINT
 
 public:
   explicit QtAsciiArterMenuDialog(QWidget *parent = 0);

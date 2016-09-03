@@ -1,5 +1,11 @@
 #include <iostream>
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Weffc++"
+#pragma GCC diagnostic ignored "-Wunused-local-typedefs"
 #include <QtTest/QtTest>
+#pragma GCC diagnostic pop
+
 #include "qtasciiartermaindialog_test.h"
 #include "qtasciiartermenudialog_test.h"
 

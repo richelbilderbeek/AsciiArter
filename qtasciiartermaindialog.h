@@ -64,10 +64,6 @@ private:
 private slots:
   void on_button_load_clicked();
   void on_box_width_valueChanged(int);
-
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
 };
 
 } //~namespace ribi

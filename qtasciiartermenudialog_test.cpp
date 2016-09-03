@@ -72,3 +72,16 @@ void ribi::QtAsciiArterMenuDialog::on_button_quit_clicked()
 {
   this->close();
 }
+
+#ifndef NDEBUG
+void ribi::QtAsciiArterMenuDialog::Test() noexcept
+{
+  {
+    static bool is_tested{false};
+    if (is_tested) return;
+    is_tested = true;
+  }
+  const TestTimer test_timer(__func__,__FILE__,1.0);
+  QtAsciiArterMenuDialog();
+}
+#endif

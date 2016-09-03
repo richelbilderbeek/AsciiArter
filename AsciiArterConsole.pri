@@ -1,14 +1,13 @@
-INCLUDEPATH += \
-    ../AsciiArter
+INCLUDEPATH += $$PWD
 
 SOURCES += \
-    ../AsciiArter/asciiartermaindialog.cpp \
-    ../AsciiArter/asciiartermenudialog.cpp
+    $$PWD/asciiartermaindialog.cpp \
+    $$PWD/asciiartermenudialog.cpp
 
 HEADERS += \
-    ../AsciiArter/asciiartermaindialog.h \
-    ../AsciiArter/asciiartermenudialog.h
+    $$PWD/asciiartermaindialog.h \
+    $$PWD/asciiartermenudialog.h
 
 RESOURCES += \
-    ../AsciiArter/AsciiArter.qrc
+    $$PWD/AsciiArter.qrc
 

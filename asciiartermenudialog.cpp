@@ -42,9 +42,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ribi::AsciiArterMenuDialog::AsciiArterMenuDialog()
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 int ribi::AsciiArterMenuDialog::ExecuteSpecific(const std::vector<std::string>& argv) noexcept
@@ -161,33 +159,3 @@ ribi::Help ribi::AsciiArterMenuDialog::GetHelp() const noexcept
     }
   );
 }
-
-#ifndef NDEBUG
-void ribi::AsciiArterMenuDialog::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  {
-    fileio::FileIo();
-    AsciiArterMainDialog("",20);
-  }
-  const TestTimer test_timer(__func__,__FILE__,1.0);
-  const std::string temp_filename = fileio::FileIo().GetTempFileName();
-  assert(!fileio::FileIo().IsRegularFile(temp_filename));
-  {
-    QFile qfile(":/AsciiArter/images/R.png");
-    qfile.copy(temp_filename.c_str());
-  }
-  assert(fileio::FileIo().IsRegularFile(temp_filename)
-    && "Resource file must exist");
-
-  const AsciiArterMainDialog d(temp_filename,20);
-  assert(!d.GetAsciiArt().empty());
-
-  fileio::FileIo().DeleteFile(temp_filename);
-  assert(!fileio::FileIo().IsRegularFile(temp_filename));
-}
-#endif

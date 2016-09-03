@@ -18,42 +18,58 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //---------------------------------------------------------------------------
 //From http://www.richelbilderbeek.nl/ToolAsciiArter.htm
 //---------------------------------------------------------------------------
-#ifndef QTASCIIARTERMENUDIALOG_H
-#define QTASCIIARTERMENUDIALOG_H
+#ifndef QTASCIIARTERDIALOG_H
+#define QTASCIIARTERDIALOG_H
+
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Weffc++"
+#include <boost/scoped_ptr.hpp>
+#include "qthideandshowdialog.h"
+
+#include "asciiartermaindialog.h"
 #include "qthideandshowdialog.h"
 #pragma GCC diagnostic pop
 
 namespace Ui {
-class QtAsciiArterMenuDialog;
+  class QtAsciiArterMainDialog;
 }
+
+struct QImage;
 
 namespace ribi {
 
-class QtAsciiArterMenuDialog : public QtHideAndShowDialog
+class QtAsciiArterMainDialog : public QtHideAndShowDialog
 {
   Q_OBJECT
 
 public:
-  explicit QtAsciiArterMenuDialog(QWidget *parent = 0);
-  QtAsciiArterMenuDialog(const QtAsciiArterMenuDialog&) = delete;
-  QtAsciiArterMenuDialog& operator=(const QtAsciiArterMenuDialog&) = delete;
-  ~QtAsciiArterMenuDialog() noexcept;
+  explicit QtAsciiArterMainDialog(QWidget *parent = 0);
+  QtAsciiArterMainDialog(const QtAsciiArterMainDialog&) = delete;
+  QtAsciiArterMainDialog& operator=(const QtAsciiArterMainDialog&) = delete;
+  ~QtAsciiArterMainDialog() noexcept;
+
+  const std::string& GetFilename() const noexcept { return m_filename; }
+  int GetWidth() const noexcept;
 
 protected:
   void keyPressEvent(QKeyEvent *);
 
-private slots:
-  void on_button_start_clicked();
-  void on_button_about_clicked();
-  void on_button_quit_clicked();
-
 private:
-  Ui::QtAsciiArterMenuDialog *ui;
+  Ui::QtAsciiArterMainDialog *ui;
+  boost::scoped_ptr<AsciiArterMainDialog> m_dialog;
+  std::string m_filename;
+  void OnAnyChange();
+
+private slots:
+  void on_button_load_clicked();
+  void on_box_width_valueChanged(int);
+
+  #ifndef NDEBUG
+  static void Test() noexcept;
+  #endif
 };
 
 } //~namespace ribi
 
-#endif // QTASCIIARTERMENUDIALOG_H
+#endif // QTASCIIARTERDIALOG_H

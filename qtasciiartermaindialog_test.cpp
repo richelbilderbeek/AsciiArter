@@ -100,6 +100,38 @@ void ribi::QtAsciiArterMainDialog::keyPressEvent(QKeyEvent * event)
   if (event->key() == Qt::Key_Escape) close();
 }
 
+#ifndef NDEBUG
+void ribi::QtAsciiArterMainDialog::Test() noexcept
+{
+  {
+    static bool is_tested{false};
+    if (is_tested) return;
+    is_tested = true;
+  }
+  const TestTimer test_timer(__func__,__FILE__,1.0);
+  const std::string tmp_filename { fileio::FileIo().GetTempFileName() };
+  assert(!fileio::FileIo().IsRegularFile(tmp_filename));
+  //Load image from resources, save to file
+  {
+    QPixmap p(":/ToolImageAsciiArter/images/R.png");
+    assert(p.width() > 0);
+    assert(p.height() > 0);
+    p.save(tmp_filename.c_str());
+  }
+  assert(fileio::FileIo().IsRegularFile(tmp_filename));
+  boost::scoped_ptr<AsciiArterMainDialog> dialog(
+    new AsciiArterMainDialog(tmp_filename,40)
+  );
+  assert(dialog);
+  const std::vector<std::string> v {
+    dialog->GetAsciiArt()
+  };
+  assert(!v.empty());
+  fileio::FileIo().DeleteFile(tmp_filename);
+  assert(!fileio::FileIo().IsRegularFile(tmp_filename));
+}
+#endif
+
 void ribi::QtAsciiArterMainDialog::on_box_width_valueChanged(int)
 {
   OnAnyChange();

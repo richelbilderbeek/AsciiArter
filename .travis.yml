@@ -23,11 +23,13 @@ addons:
     - libboost1.55-all-dev
 
 script: 
+  - ./build_console_test.sh
+  - ./AsciiArterConsoleTest
+  - ./get_code_cov.sh
+  - codecov
   - ./build_console.sh
   - ./build_desktop.sh
   - ./do_oclint.sh
-  - ./get_code_cov.sh
-  - codecov
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

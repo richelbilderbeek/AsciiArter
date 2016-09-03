@@ -44,9 +44,7 @@ ribi::AsciiArterMainDialog::AsciiArterMainDialog(
   : m_filename(filename),
     m_n_cols(n_cols)
 {
-  #ifndef NDEBUG
-  Test();
-  #endif
+
 }
 
 
@@ -74,40 +72,6 @@ const boost::shared_ptr<ribi::ImageCanvas> ribi::AsciiArterMainDialog::GetImageC
   assert(canvas);
   return canvas;
 }
-
-#ifndef NDEBUG
-void ribi::AsciiArterMainDialog::Test() noexcept
-{
-  {
-    static bool is_tested{false};
-    if (is_tested) return;
-    is_tested = true;
-  }
-  {
-    fileio::FileIo();
-    boost::shared_ptr<ImageCanvas> canvas{new ImageCanvas("",1)};
-  }
-  const TestTimer test_timer(__func__,__FILE__,1.0);
-  const std::string temp_filename = fileio::FileIo().GetTempFileName();
-  assert(!fileio::FileIo().IsRegularFile(temp_filename));
-  {
-    QFile qfile(":/AsciiArter/images/R.png");
-    qfile.copy(temp_filename.c_str());
-  }
-  assert(fileio::FileIo().IsRegularFile(temp_filename)
-    && "Resource file must exist");
-
-  const AsciiArterMainDialog d(temp_filename,20);
-  assert(!d.GetAsciiArt().empty());
-  std::stringstream s;
-  s << d;
-  assert(!s.str().empty());
-  //TRACE(d);
-
-  fileio::FileIo().DeleteFile(temp_filename);
-  assert(!fileio::FileIo().IsRegularFile(temp_filename));
-}
-#endif
 
 std::ostream& ribi::operator<<(std::ostream& os, const AsciiArterMainDialog& d)
 {

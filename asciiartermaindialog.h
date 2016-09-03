@@ -64,10 +64,6 @@ struct AsciiArterMainDialog
   //const std::vector<std::string> m_asciiart;
   const std::string m_filename;
   const int m_n_cols;
-
-  #ifndef NDEBUG
-  static void Test() noexcept;
-  #endif
 };
 
 std::ostream& operator<<(std::ostream& os, const AsciiArterMainDialog& d);

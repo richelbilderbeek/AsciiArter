@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cpp_files=`ls *.cpp | egrep -v "^qrc_.*\.cpp$" | egrep -v "^moc_.*\.cpp$" | egrep -v "^.*_test\.cpp$"`
-h_files=`ls *.h | egrep -v "^ui_.*\.h$"`
+cpp_files=`ls *.cpp | egrep -v "^qrc_.*\.cpp$" | egrep -v "^moc_.*\.cpp$" | egrep -v "^.*_test\.cpp$" | egrep -v "^wt.\.cpp$"`
+h_files=`ls *.h | egrep -v "^ui_.*\.h$" | egrep -v "^wt.\.h$"`
 
 ./oclint-0.10.3/bin/oclint -o oclint.log \
   -disable-rule ShortVariableName \
@@ -10,11 +10,13 @@ h_files=`ls *.h | egrep -v "^ui_.*\.h$"`
   -- \
   -c -std=c++11 -fPIC \
   -I../RibiClasses/CppAbout \
+  -I../RibiClasses/CppCanvas \
   -I../RibiClasses/CppContainer \
   -I../RibiClasses/CppCounter \
   -I../RibiClasses/CppFuzzy_equal_to \
   -I../RibiClasses/CppGeometry \
   -I../RibiClasses/CppHelp \
+  -I../RibiClasses/CppImageCanvas \
   -I../RibiClasses/CppTestTimer \
   -I../RibiClasses/CppFileIo \
   -I../RibiClasses/CppMenuDialog \

@@ -9,8 +9,9 @@ include(../RibiClasses/CppDotMatrix/CppDotMatrix.pri)
 include(../RibiClasses/CppImageCanvas/CppImageCanvas.pri)
 
 include(AsciiArterDesktop.pri)
+include(AsciiArterDesktopTest.pri)
 
-SOURCES += qtmain.cpp
+SOURCES += qtmain_test.cpp
 
 # Thanks to Qt
 QMAKE_CXXFLAGS += -Wno-unused-variable
@@ -24,3 +25,6 @@ QMAKE_CXX = g++-5
 QMAKE_LINK = g++-5
 QMAKE_CC = gcc-5
 QMAKE_CXXFLAGS += -std=c++11
+
+# QTest
+QT += testlib

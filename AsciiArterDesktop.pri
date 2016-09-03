@@ -1,14 +1,14 @@
-include(../AsciiArter/AsciiArterConsole.pri)
+include(AsciiArterConsole.pri)
 
 FORMS += \
-    ../AsciiArter/qtasciiartermenudialog.ui \
-    ../AsciiArter/qtasciiartermaindialog.ui
+    $$PWD/qtasciiartermenudialog.ui \
+    $$PWD/qtasciiartermaindialog.ui
 
 
 SOURCES += \
-    ../AsciiArter/qtasciiartermenudialog.cpp \
-    ../AsciiArter/qtasciiartermaindialog.cpp
+    $$PWD/qtasciiartermenudialog.cpp \
+    $$PWD/qtasciiartermaindialog.cpp
 
 HEADERS += \
-    ../AsciiArter/qtasciiartermenudialog.h \
-    ../AsciiArter/qtasciiartermaindialog.h
+    $$PWD/qtasciiartermenudialog.h \
+    $$PWD/qtasciiartermaindialog.h

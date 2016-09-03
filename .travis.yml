@@ -25,6 +25,8 @@ addons:
 script: 
   - ./build_console_test.sh
   - ./AsciiArterConsoleTest
+  - ./build_desktop_test.sh
+  - ./AsciiArterDesktopTest
   - ./get_code_cov.sh
   - codecov
   - ./build_console.sh

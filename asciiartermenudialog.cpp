@@ -54,21 +54,19 @@ int ribi::AsciiArterMenuDialog::ExecuteSpecific(const std::vector<std::string>& 
     return 1;
   }
   {
-    const std::string s { argv[1] };
-    if (!fileio::FileIo().IsRegularFile(s))
+    if (!fileio::FileIo().IsRegularFile(argv[1]))
     {
       std::cout
-        << "Error: '" << s << "' is not found.\n"
+        << "Error: '" << argv[1] << "' is not found.\n"
         << "Please supply an existing file as AsciiArter its first argument\n";
       return 1;
     }
   }
   if (argc == 4)
   {
-    const std::string s { argv[3] };
     try
     {
-      const int n_cols = boost::lexical_cast<int>(s);
+      const int n_cols = boost::lexical_cast<int>(argv[3]);
       if (n_cols < 5)
       {
         std::cout
@@ -80,17 +78,16 @@ int ribi::AsciiArterMenuDialog::ExecuteSpecific(const std::vector<std::string>& 
     catch (boost::bad_lexical_cast&)
     {
       std::cout
-        << "Error: '" << s << "' is not an integer number.\n"
+        << "Error: '" << argv[3] << "' is not an integer number.\n"
         << "Please supply a number as AsciiArter its third argument\n";
       return 1;
 
     }
   }
 
-  assert(argc >= 3);
   const std::string from_name { argv[1] };
   std::string to_name { argv[2] };
-  const int n_cols = (argc == 4 ? boost::lexical_cast<int>(argv[3]) : 78);
+  const int n_cols{argc == 4 ? boost::lexical_cast<int>(argv[3]) : 78};
 
   AsciiArterMainDialog d(from_name,n_cols);
   const std::vector<std::string> v { d.GetAsciiArt() };
@@ -131,9 +128,11 @@ std::vector<std::string> ribi::AsciiArterMenuDialog::GetVersionHistory() const n
     "2011-03-23: Version 4.0: port to Qt4",
     "2011-03-27: Version 4.1: added web application version",
     "2011-04-04: Version 4.2: fix bug under the web application its Convert button",
-    "2011-04-25: Version 4.3: removed website version\'s Close button, use of Wt::WMenu in website version",
+    "2011-04-25: Version 4.3: removed website version\'s Close button, "
+      "use of Wt::WMenu in website version",
     "2011-08-31: Version 4.4: added Welcome picture to website version",
-    "2012-07-30: Version 5.0: renamed 'TestAsciiArter' to 'AsciiArter', added menu to desktop version",
+    "2012-07-30: Version 5.0: renamed 'TestAsciiArter' to 'AsciiArter', "
+      "added menu to desktop version",
     "2012-12-24: Version 5.1: slickened desktop application looks",
     "2013-07-12: Version 5.2: transitioned to Qt5 and Boost 1.54.0",
     "2013-07-12: Version 6.0: replaced use of AsciiArter class by ImageCanvas",

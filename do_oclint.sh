@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cpp_files=`ls *.cpp | egrep -v "^qrc_.*\.cpp$" | egrep -v "^moc_.*\.cpp$" | egrep -v "^.*_test\.cpp$" | egrep -v "^wt.\.cpp$"`
-h_files=`ls *.h | egrep -v "^ui_.*\.h$" | egrep -v "^wt.\.h$"`
+cpp_files=`ls *.cpp | egrep -v "^qrc_.*\.cpp$" | egrep -v "^moc_.*\.cpp$" | egrep -v "^.*_test\.cpp$" | egrep -v "^wt.*\.cpp$"`
+h_files=`ls *.h | egrep -v "^ui_.*\.h$" | egrep -v "^wt.*\.h$"`
 
 ./oclint-0.10.3/bin/oclint -o oclint.log \
   -disable-rule ShortVariableName \
@@ -20,21 +20,14 @@ h_files=`ls *.h | egrep -v "^ui_.*\.h$" | egrep -v "^wt.\.h$"`
   -I../RibiClasses/CppTestTimer \
   -I../RibiClasses/CppFileIo \
   -I../RibiClasses/CppMenuDialog \
-  -I../RibiClasses/CppMusic \
   -I../RibiClasses/CppPlane \
   -I../RibiClasses/CppQtAboutDialog \
   -I../RibiClasses/CppQtArrowItem \
   -I../RibiClasses/CppQtHideAndShowDialog \
-  -I../RibiClasses/CppQtKeyboardFriendlyGraphicsView \
-  -I../RibiClasses/CppQtQuadBezierArrowItem \
-  -I../RibiClasses/CppQtRoundedEditRectItem \
-  -I../RibiClasses/CppQtRoundedRectItem \
   -I../RibiClasses/CppQtScopedDisable \
   -I../RibiClasses/CppRibiRegex \
   -I../RibiClasses/CppTrace \
   -I../RibiClasses/CppXml \
-  -I../BoostGraphTutorial/BoostGraphTutorial \
-  -I../StyleSheetSetter \
   -I../RibiLibraries/Apfloat \
   -I/usr/include/c++/5 \
   -I/usr/include/x86_64-linux-gnu/c++/5 \

@@ -42,3 +42,5 @@ qrc_*
 *.gcda
 *.tar.gz
 oclint-0.10.3/
+*.pro.user
+*.pro.user.*

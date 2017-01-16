@@ -37,7 +37,7 @@ script:
   - codecov
   - ./build_console.sh
   - ./build_desktop.sh
-  - ./do_oclint.sh
+  - ./do_oclint
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

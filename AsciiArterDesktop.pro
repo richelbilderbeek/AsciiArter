@@ -1,16 +1,11 @@
-unix:!macx{
-  # Linux only
-  message("GNU/Linux")
-  message(Host name: $$QMAKE_HOST.name)
-  CONFIG += c++14
-  QMAKE_CXX = g++-5
-  QMAKE_LINK = g++-5
-  QMAKE_CC = gcc-5
-  QMAKE_CXXFLAGS += -Wall -Wextra -Werror -std=c++14
-}
+CONFIG += c++14
+QMAKE_CXX = g++-5
+QMAKE_LINK = g++-5
+QMAKE_CC = gcc-5
+QMAKE_CXXFLAGS += -Wall -Wextra -Werror -std=c++14
 
-
-QT       += core gui widgets
+# Qt
+QT += core gui widgets
 
 # Debug and release mode
 CONFIG += debug_and_release
@@ -53,7 +48,3 @@ include(../RibiClasses/CppImageCanvas/CppImageCanvas.pri)
 include(AsciiArterDesktop.pri)
 
 SOURCES += qtmain.cpp
-
-# Thanks to Qt
-QMAKE_CXXFLAGS += -Wno-unused-variable
-

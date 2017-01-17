@@ -1,3 +1,3 @@
 #!/bin/bash
 qmake AsciiArterWebsite.pro
-make
+make debug

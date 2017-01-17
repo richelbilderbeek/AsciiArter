@@ -9,7 +9,7 @@ before_install:
 
 install: 
   - sudo apt-get install -qq g++-5
-  - ./install_oclint.sh
+  - ./install_oclint
   - ./download_other_githubs.sh
 
 addons:
@@ -29,14 +29,26 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script: 
-  - ./build_console_test.sh
+  # Test console
+  - qmake AsciiArterConsoleTest.pro
+  - make debug
   - ./AsciiArterConsoleTest
-  - ./build_desktop_test.sh
+  # Test desktop
+  - qmake AsciiArterDesktopTest.pro
+  - make debug
   - ./AsciiArterDesktopTest
-  - ./get_code_cov.sh
+  # Debug
+  - qmake AsciiArterDesktop.pro
+  - make debug
+  - ./AsciiArterDesktop &
+  # Console
+  - qmake AsciiArterConsole.pro
+  - make debug
+  - ./AsciiArterConsole
+  # Code coverage
+  - ./get_code_cov
   - codecov
-  - ./build_console.sh
-  - ./build_desktop.sh
+  # OCLint
   - ./do_oclint
 
 after_success:

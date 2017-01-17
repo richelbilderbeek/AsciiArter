@@ -44,7 +44,7 @@ script:
   # Console
   - qmake AsciiArterConsole.pro
   - make debug
-  - ./AsciiArterConsole
+  - ./AsciiArterConsole --help
   # Code coverage
   - ./get_code_cov
   - codecov

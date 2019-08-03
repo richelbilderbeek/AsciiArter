@@ -1,4 +1,4 @@
-#pragma GCC diagnostic push
+
 
 #include "qtasciiartermenudialog.h"
 
@@ -8,7 +8,7 @@
 #include "asciiartermenudialog.h"
 #include "qtasciiartermaindialog.h"
 #include "ui_qtasciiartermenudialog.h"
-#pragma GCC diagnostic pop
+
 
 
 ribi::QtAsciiArterMenuDialog::QtAsciiArterMenuDialog(QWidget *parent) :

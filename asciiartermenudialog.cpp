@@ -1,4 +1,4 @@
-#pragma GCC diagnostic push
+
 
 
 #include "asciiartermenudialog.h"
@@ -16,7 +16,7 @@
 #include "asciiartermaindialog.h"
 #include "fileio.h"
 #include "imagecanvas.h"
-#pragma GCC diagnostic pop
+
 
 ribi::AsciiArterMenuDialog::AsciiArterMenuDialog()
 {

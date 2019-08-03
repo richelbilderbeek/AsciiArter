@@ -1,4 +1,4 @@
-#pragma GCC diagnostic push
+
 
 #include "asciiartermaindialog.h"
 
@@ -14,7 +14,7 @@
 #include "canvas.h"
 #include "imagecanvas.h"
 #include "fileio.h"
-#pragma GCC diagnostic pop
+
 
 ribi::AsciiArterMainDialog::AsciiArterMainDialog(
   const std::string& filename,

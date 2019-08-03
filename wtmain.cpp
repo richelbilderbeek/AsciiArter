@@ -1,4 +1,4 @@
-#pragma GCC diagnostic push
+
 
 
 
@@ -17,7 +17,7 @@
 #include <QFile>
 
 #include "fileio.h"
-#pragma GCC diagnostic pop
+
 
 struct WtApplication : public Wt::WApplication
 {

@@ -2,14 +2,14 @@
 #define QTASCIIARTERDIALOG_H
 
 
-#pragma GCC diagnostic push
+
 
 #include <memory>
 #include "qthideandshowdialog.h"
 
 #include "asciiartermaindialog.h"
 #include "qthideandshowdialog.h"
-#pragma GCC diagnostic pop
+
 
 namespace Ui {
   class QtAsciiArterMainDialog;

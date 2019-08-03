@@ -1,10 +1,10 @@
 #include <iostream>
 
-#pragma GCC diagnostic push
+
 
 
 #include <QtTest/QtTest>
-#pragma GCC diagnostic pop
+
 
 #include "qtasciiartermaindialog_test.h"
 #include "qtasciiartermenudialog_test.h"

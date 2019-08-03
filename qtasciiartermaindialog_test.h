@@ -1,11 +1,11 @@
 #ifndef QTASCIIARTERDIALOGTEST_H
 #define QTASCIIARTERDIALOGTEST_H
 
-#pragma GCC diagnostic push
+
 
 
 #include <QtTest/QtTest>
-#pragma GCC diagnostic pop
+
 
 namespace ribi {
 

@@ -1,4 +1,4 @@
-#pragma GCC diagnostic push
+
 
 
 #include "qtasciiartermaindialog.h"
@@ -17,7 +17,7 @@
 #include "fileio.h"
 #include "qtaboutdialog.h"
 #include "ui_qtasciiartermaindialog.h"
-#pragma GCC diagnostic pop
+
 
 ribi::QtAsciiArterMainDialog::QtAsciiArterMainDialog(QWidget *parent)
   : QtHideAndShowDialog(parent),

@@ -21,14 +21,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #ifndef WTASCIIARTERMAINDIALOG_H
 #define WTASCIIARTERMAINDIALOG_H
 
-#pragma GCC diagnostic push
+
 
 
 
 #include <boost/scoped_ptr.hpp>
 
 #include <Wt/WContainerWidget>
-#pragma GCC diagnostic pop
+
 
 namespace Wt
 {

@@ -3,7 +3,7 @@
 
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Weffc++"
+
 #include <memory>
 #include "qthideandshowdialog.h"
 

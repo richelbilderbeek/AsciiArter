@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Install Wt
+#
+#
+# From https://redmine.webtoolkit.eu/projects/wt/wiki/Installing_Wt_on_Ubuntu
+#
+
+# Install prerequisites
+sudo apt-get install gcc g++ libboost-all-dev cmake
+
+# Download Wt 4.1.0
+wget -c https://github.com/emweb/wt/archive/4.1.0.tar.gz
+tar xf 4.1.0.tar.gz
+
+# Build Wt 4.1.
+cd wt-4.1.0
+mkdir build; cd build
+cmake ..
+make
+make -C examples
+
+# Install
+sudo make install
+sudo ldconfig
+
+# Back to initial folder
+cd ..
+cd ..

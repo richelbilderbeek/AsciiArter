@@ -11,7 +11,7 @@ install:
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
   # Wt
-  - sudo apt-get install -qq witty witty-dbg witty-dev witty-doc
+  - sudo ./install_wt
   # cppcheck
   - sudo apt-get install -qq cppcheck
   # Codecov

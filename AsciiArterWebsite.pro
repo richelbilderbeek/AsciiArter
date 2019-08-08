@@ -17,10 +17,6 @@ include(AsciiArterWebsite.pri)
 
 SOURCES += wtmain.cpp
 
-
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
-
 # High warning levels
 # Qt does not go well with -Weffc++
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -Werror
@@ -70,3 +66,7 @@ QMAKE_CXXFLAGS += -Wno-unused-variable
 #   BOOST_DEFINE_MATH_CONSTANT(half, 5.000000000000000000000000000000000000e-01, "5.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e-01")
 #   ^
 QMAKE_CXXFLAGS += -fext-numeric-literals
+
+# Wt
+LIBS += -L/usr/local/lib/ -lwt -lwthttp
+INCLUDEPATH += /local/include

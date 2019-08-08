@@ -21,14 +21,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #ifndef WTASCIIARTERMAINDIALOG_H
 #define WTASCIIARTERMAINDIALOG_H
 
-
-
-
-
 #include <boost/scoped_ptr.hpp>
 
-#include <Wt/WContainerWidget>
-
+#include <Wt/WContainerWidget.h>
 
 namespace Wt
 {

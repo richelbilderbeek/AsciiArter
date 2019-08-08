@@ -1,15 +1,12 @@
-
-
-
-
 #include <boost/signals2.hpp>
-#include <Wt/WApplication>
-#include <Wt/WContainerWidget>
-#include <Wt/WEnvironment>
-#include <Wt/WPaintDevice>
-#include <Wt/WPaintedWidget>
-#include <Wt/WPainter>
-#include <Wt/WPushButton>
+#include <boost/scoped_ptr.hpp>
+#include <Wt/WApplication.h>
+#include <Wt/WContainerWidget.h>
+#include <Wt/WEnvironment.h>
+#include <Wt/WPaintDevice.h>
+#include <Wt/WPaintedWidget.h>
+#include <Wt/WPainter.h>
+#include <Wt/WPushButton.h>
 
 #include "wtautoconfig.h"
 #include "wtasciiartermaindialog.h"
@@ -18,27 +15,26 @@
 
 #include "fileio.h"
 
-
 struct WtApplication : public Wt::WApplication
 {
   WtApplication(const Wt::WEnvironment& env)
     : Wt::WApplication(env),
-    m_dialog(new ribi::WtAsciiArterMainDialog)
+    m_dialog{nullptr}
   {
     this->setTitle("AsciiArter");
     this->useStyleSheet("wt.css");
-    root()->addWidget(m_dialog);
+    m_dialog = root()->addWidget(std::make_unique<ribi::WtAsciiArterMainDialog>());
   }
   WtApplication(const WtApplication&) = delete;
   WtApplication& operator=(const WtApplication&) = delete;
   private:
-  ribi::WtAsciiArterMainDialog * const m_dialog;
+  ribi::WtAsciiArterMainDialog * m_dialog;
 };
 
-Wt::WApplication *createApplication(
+std::unique_ptr<Wt::WApplication> createApplication(
   const Wt::WEnvironment& env)
 {
-  return new WtApplication(env);
+  return std::make_unique<WtApplication>(env);
 }
 
 int main(int argc, char **argv)
@@ -49,7 +45,7 @@ int main(int argc, char **argv)
     file.copy("RichelbilderbeekNlBackground.png");
   }
 
-  ribi::WtAutoConfig a(argc,argv,createApplication);
+  ribi::WtAutoConfig a(argc, argv, createApplication);
   ribi::WtAutoConfig::SaveDefaultStylesheet();
   return a.Run();
 }

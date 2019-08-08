@@ -1,43 +1,18 @@
-//---------------------------------------------------------------------------
-/*
-AsciiArter, tool to create ASCII art
-Copyright (C) 2006-2015 Richel Bilderbeek
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
-//---------------------------------------------------------------------------
-//From http://www.richelbilderbeek.nl/ToolAsciiArter.htm
-//---------------------------------------------------------------------------
 #include "wtasciiartermaindialog.h"
 
-
-
-
-
-#pragma GCC diagnostic ignored "-Wcomment"
 #include <boost/lexical_cast.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
-#include <Wt/WBreak>
-#include <Wt/WFileUpload>
-#include <Wt/WGroupBox>
-#include <Wt/WImage>
-#include <Wt/WLabel>
-#include <Wt/WLineEdit>
-#include <Wt/WMenu>
-#include <Wt/WPushButton>
-#include <Wt/WStackedWidget>
-#include <Wt/WTextArea>
+#include <Wt/WBreak.h>
+#include <Wt/WFileUpload.h>
+#include <Wt/WGroupBox.h>
+#include <Wt/WImage.h>
+#include <Wt/WLabel.h>
+#include <Wt/WLineEdit.h>
+#include <Wt/WMenu.h>
+#include <Wt/WPushButton.h>
+#include <Wt/WStackedWidget.h>
+#include <Wt/WTextArea.h>
 
 #include <QFile> //Must be #included after Wt
 #include <QtGui/QImage>
@@ -84,7 +59,7 @@ ribi::WtAsciiArterMainDialog::WtAsciiArterMainDialog()
     }
   }
 
-  this->setContentAlignment(Wt::AlignCenter);
+  this->setContentAlignment(Wt::AlignmentFlag::Center);
   //if (m_dialog)
   //{
   //  m_dialog->SetWidth(79);
@@ -93,20 +68,20 @@ ribi::WtAsciiArterMainDialog::WtAsciiArterMainDialog()
   this->clear();
   //Title
   {
-    Wt::WLabel * const title = new Wt::WLabel("AsciiArter");
+    auto title = this->addWidget(std::make_unique<Wt::WLabel>("AsciiArter"));
     title->setStyleClass("title");
-    this->addWidget(title);
   }
-  this->addWidget(new Wt::WBreak);
+  this->addWidget(std::make_unique<Wt::WBreak>());
   //Menu
   {
-    Wt::WStackedWidget * const contents = new Wt::WStackedWidget;
-    Wt::WMenu * const menu = new Wt::WMenu(contents,Wt::Horizontal);
+    auto contents = std::make_unique<Wt::WStackedWidget>();
+    auto menu = std::make_unique<Wt::WMenu>(contents);
     menu->setStyleClass("menu");
     {
       Wt::WMenuItem * const item = new Wt::WMenuItem(
         "Welcome",
-        CreateNewWelcomeDialog());
+        CreateNewWelcomeDialog()
+      );
       menu->addItem(item);
     }
     {
@@ -123,28 +98,27 @@ ribi::WtAsciiArterMainDialog::WtAsciiArterMainDialog()
     }
     //Display menu on top
     this->addWidget(menu);
-    this->addWidget(new Wt::WBreak);
+    this->addWidget(std::make_unique<Wt::WBreak>());
     //Display contents below menu
-    this->addWidget(contents);
+    this->addWidget(std::move(contents));
   }
 
-  this->addWidget(new Wt::WBreak);
+  this->addWidget(std::make_unique<Wt::WBreak>());
 
   assert(ui.m_edit_width);
   assert(ui.m_text);
 }
 
-Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewAboutDialog() const
+std::unique_ptr<Wt::WWidget> ribi::WtAsciiArterMainDialog::CreateNewAboutDialog() const
 {
   About a = AsciiArterMenuDialog().GetAbout();
   a.AddLibrary("WtAutoConfig version: " + WtAutoConfig::GetVersion());
-  WtAboutDialog * const d = new WtAboutDialog(a,false);
-  return d;
+  return std::make_unique<WtAboutDialog>(a, false);
 }
 
-Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewMainDialog()
+std::unique_ptr<Wt::WWidget> ribi::WtAsciiArterMainDialog::CreateNewMainDialog()
 {
-  Wt::WContainerWidget * dialog = new Wt::WContainerWidget;
+  auto dialog = std::make_unique<Wt::WContainerWidget>();
   //File upload
   {
     assert(ui.m_fileupload);
@@ -160,8 +134,8 @@ Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewMainDialog()
       &ribi::WtAsciiArterMainDialog::OnUploadDone);
     dialog->addWidget(ui.m_fileupload);
   }
-  dialog->addWidget(new Wt::WBreak);
-  dialog->addWidget(new Wt::WBreak);
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
   //Width edit
   {
     assert(ui.m_edit_width);
@@ -182,8 +156,8 @@ Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewMainDialog()
       this, &ribi::WtAsciiArterMainDialog::OnConvertClick);
     dialog->addWidget(button);
   }
-  dialog->addWidget(new Wt::WBreak);
-  dialog->addWidget(new Wt::WBreak);
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
   //text
   {
     assert(ui.m_text);
@@ -193,19 +167,25 @@ Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewMainDialog()
   return dialog;
 }
 
-Wt::WWidget * ribi::WtAsciiArterMainDialog::CreateNewWelcomeDialog() const
+std::unique_ptr<Wt::WWidget> ribi::WtAsciiArterMainDialog::CreateNewWelcomeDialog() const
 {
-  Wt::WContainerWidget * dialog = new Wt::WContainerWidget;
-  dialog->setContentAlignment(Wt::AlignCenter);
-  dialog->addWidget(new Wt::WBreak);
-  new Wt::WLabel("Welcome to AsciiArter",dialog);
-  new Wt::WBreak(dialog);
-  new Wt::WBreak(dialog);
-  new Wt::WLabel("AsciiArter is a tool to convert images to ascii art.",dialog);
-  new Wt::WBreak(dialog);
-  new Wt::WBreak(dialog);
-  Wt::WGroupBox * const box = new Wt::WGroupBox("Explanation",dialog);
-  box->addWidget(new Wt::WImage("AsciiArterWelcome.png"));
+  auto dialog = std::make_unique<Wt::WContainerWidget>();
+  dialog->setContentAlignment(Wt::AlignmentFlag::Center);
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(std::make_unique<Wt::WLabel>("Welcome to AsciiArter"));
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(
+    std::make_unique<Wt::WLabel>(
+      "AsciiArter is a tool to convert images to ascii art."
+    )
+  );
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  dialog->addWidget(std::make_unique<Wt::WBreak>());
+  auto box = dialog->addWidget(std::make_unique<Wt::WGroupBox>("Explanation"));
+  box->addWidget(
+    std::make_unique<Wt::WImage>("AsciiArterWelcome.png")
+  );
   return dialog;
 }
 

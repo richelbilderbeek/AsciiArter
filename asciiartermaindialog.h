@@ -30,7 +30,7 @@ struct AsciiArterMainDialog
   );
 
   std::vector<std::string> GetAsciiArt() const noexcept;
-  const boost::shared_ptr<ImageCanvas> GetImageCanvas() const noexcept;
+  boost::shared_ptr<ImageCanvas> GetImageCanvas() const;
 
   private:
 

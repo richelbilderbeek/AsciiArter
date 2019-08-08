@@ -31,8 +31,8 @@ std::vector<std::string> ribi::AsciiArterMainDialog::GetAsciiArt() const noexcep
   return canvas->ToStrings();
 }
 
-const boost::shared_ptr<ribi::ImageCanvas>
-ribi::AsciiArterMainDialog::GetImageCanvas() const noexcept
+boost::shared_ptr<ribi::ImageCanvas>
+ribi::AsciiArterMainDialog::GetImageCanvas() const
 {
   if (!fileio::FileIo().IsRegularFile(m_filename))
   {

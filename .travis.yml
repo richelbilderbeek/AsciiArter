@@ -11,7 +11,7 @@ install:
   # Qt5
   - sudo apt-get install -qq qt5-qmake qt5-default
   # Wt
-  - sudo ./install_wt
+  #- sudo ./install_wt
   # cppcheck
   - sudo apt-get install -qq cppcheck
   # Codecov
@@ -42,9 +42,9 @@ script:
   - make --silent debug
   - ./AsciiArterConsole --help
   # Website
-  - qmake -qt=qt5 AsciiArterWebsite.pro
-  - make --silent debug
-  - ./AsciiArterWebsite &
+  #- qmake -qt=qt5 AsciiArterWebsite.pro
+  #- make --silent debug
+  #- ./AsciiArterWebsite &
   # cppcheck, accept memory leak for now
   - cppcheck --quiet --error-exitcode=0 . 
   # Code coverage

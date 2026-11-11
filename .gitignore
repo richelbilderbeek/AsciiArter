@@ -44,3 +44,6 @@ qrc_*
 oclint-0.10.3/
 *.pro.user
 *.pro.user.*
+
+# Generated when building the website
+/site/

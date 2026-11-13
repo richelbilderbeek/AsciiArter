@@ -1,7 +1,7 @@
 # AsciiArter
 
 AsciiArter is a C++ tool to create ASCII art
-and one of [Richèl Bilderbeek's tools](https://richelbilderbeek.github.io/games).
+and one of [Richèl Bilderbeek's tools](https://richelbilderbeek.github.io/tools/).
 
 ![AsciiArter menu v7.0](AsciiArterMenu_7_0.png)
 

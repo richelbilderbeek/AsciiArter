@@ -1,3 +1,6 @@
+# Builds the WebAssembly version of AsciiArter
+# and puts it on the website, on the 'Run' page.
+#
 # Adapted from https://zensical.org/docs/publish-your-site/#with-github-actions
 name: Create Zensical website
 
@@ -7,9 +10,22 @@ on:
       - main
     paths:
       - .github/workflows/create_zensical_website.yaml
+      - '*.cpp'
+      - '*.h'
+      - '*.png'
+      - '*.pri'
+      - '*.pro'
+      - '*.qrc'
+      - '*.ui'
       - 'docs/**'
       - zensical.toml
   workflow_dispatch:
+
+env:
+  # A version of Qt only works with one version of Emscripten, see
+  # https://doc.qt.io/qt-6/wasm.html#installing-emscripten
+  QT_VERSION: 6.8.3
+  EMSCRIPTEN_VERSION: 3.1.56
 
 permissions:
   contents: read
@@ -17,7 +33,50 @@ permissions:
   id-token: write
 
 jobs:
+  build_wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Get the repositories AsciiArter depends on
+        run: |
+          git clone --depth 1 https://github.com/richelbilderbeek/DotMatrix ../DotMatrix
+          git clone --depth 1 https://github.com/richelbilderbeek/RibiClasses ../RibiClasses
+
+      - name: Get the Boost headers, without the other system headers
+        run: |
+          sudo apt-get install -y libboost-dev
+          mkdir -p "${RUNNER_TEMP}/boost_include"
+          cp -r /usr/include/boost "${RUNNER_TEMP}/boost_include/"
+
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: all_os
+          target: wasm
+          arch: wasm_singlethread
+          cache: true
+
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: ${{ env.EMSCRIPTEN_VERSION }}
+
+      - run: qmake AsciiArterWasm.pro "BOOST_INCLUDE=${RUNNER_TEMP}/boost_include"
+      - run: make --silent
+
+      - name: Collect the files needed to run AsciiArter
+        run: |
+          mkdir wasm
+          cp AsciiArter.html AsciiArter.js AsciiArter.wasm qtloader.js qtlogo.svg wasm/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AsciiArter_wasm
+          path: wasm
+          if-no-files-found: error
+
   create_zensical_website:
+    needs: build_wasm
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -25,6 +84,10 @@ jobs:
     steps:
       - uses: actions/configure-pages@v5
       - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: AsciiArter_wasm
+          path: docs/app
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x

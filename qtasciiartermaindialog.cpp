@@ -7,8 +7,13 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
-#include <QDesktopWidget>
+#include <QFile>
 #include <QFileDialog>
+#include <QFileInfo>
+#include <QScreen>
+#if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
+#include <QDesktopWidget>
+#endif
 #include <QKeyEvent>
 //#include <QImage>
 #include <QPixmap>
@@ -28,7 +33,11 @@ ribi::QtAsciiArterMainDialog::QtAsciiArterMainDialog(QWidget *parent)
   ui->setupUi(this);
 
   //Put the dialog in the screen center
+  #if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
   const QRect screen = QApplication::desktop()->screenGeometry();
+  #else
+  const QRect screen = this->screen()->geometry();
+  #endif
   this->move( screen.center() - this->rect().center() );
 }
 
@@ -62,8 +71,29 @@ void ribi::QtAsciiArterMainDialog::OnAnyChange()
 
 void ribi::QtAsciiArterMainDialog::on_button_load_clicked()
 {
-  const std::string filename = QFileDialog::getOpenFileName().toStdString();
+  #ifdef Q_OS_WASM
+  //In a web browser, there is no file system to pick a file from:
+  //let the browser upload the image and store it in the in-memory file system
+  QFileDialog::getOpenFileContent(
+    "Images (*.png *.jpg *.jpeg *.bmp *.gif)",
+    [this](const QString& name, const QByteArray& content)
+    {
+      if (name.isEmpty()) return; //User cancelled
+      const QString filename{"/tmp/image." + QFileInfo(name).suffix()};
+      QFile file{filename};
+      if (!file.open(QIODevice::WriteOnly)) return;
+      file.write(content);
+      file.close();
+      LoadFile(filename.toStdString());
+    }
+  );
+  #else
+  LoadFile(QFileDialog::getOpenFileName().toStdString());
+  #endif
+}
 
+void ribi::QtAsciiArterMainDialog::LoadFile(const std::string& filename)
+{
   if (!fileio::FileIo().IsRegularFile(filename))
   {
     m_filename = "";

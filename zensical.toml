@@ -5,7 +5,8 @@ repo_url = "https://github.com/richelbilderbeek/AsciiArter"
 edit_uri = "blob/main/docs/"
 
 nav = [
-  { "Start" = "README.md"}
+  { "Start" = "README.md"},
+  { "Run" = "run.md"}
 ]
 
 [project.theme]

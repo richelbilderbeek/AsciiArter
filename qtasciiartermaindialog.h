@@ -40,6 +40,7 @@ private:
   std::unique_ptr<AsciiArterMainDialog> m_dialog;
   std::string m_filename;
   void OnAnyChange();
+  void LoadFile(const std::string& filename);
 
 private slots:
   void on_button_load_clicked();

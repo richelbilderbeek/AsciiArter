@@ -17,6 +17,7 @@ on:
       - '*.pro'
       - '*.qrc'
       - '*.ui'
+      - .github/scripts/test_run_page.py
       - 'docs/**'
       - zensical.toml
   workflow_dispatch:
@@ -86,8 +87,39 @@ jobs:
           path: wasm
           if-no-files-found: error
 
-  create_zensical_website:
+  test_run_page:
     needs: build_wasm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: AsciiArter_wasm
+          path: docs/app
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - run: pip install pillow playwright zensical
+      - run: playwright install --with-deps chromium
+      - run: zensical build --clean --strict
+
+      - name: Run AsciiArter on the website
+        run: |
+          python -m http.server 8000 --directory site &
+          sleep 1
+          python .github/scripts/test_run_page.py http://localhost:8000/run/ AsciiArter.png run_page.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: run_page_screenshot
+          path: run_page.png
+
+  create_zensical_website:
+    needs: test_run_page
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

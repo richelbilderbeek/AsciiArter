@@ -110,7 +110,7 @@ jobs:
         run: |
           python -m http.server 8000 --directory site &
           sleep 1
-          python .github/scripts/test_run_page.py http://localhost:8000/run/ AsciiArter.png run_page.png
+          python .github/scripts/test_run_page.py http://localhost:8000/run/ R.png run_page.png
 
       - uses: actions/upload-artifact@v4
         if: always()

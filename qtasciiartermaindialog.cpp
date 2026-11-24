@@ -7,6 +7,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
+#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -78,13 +79,21 @@ void ribi::QtAsciiArterMainDialog::on_button_load_clicked()
     "Images (*.png *.jpg *.jpeg *.bmp *.gif)",
     [this](const QString& name, const QByteArray& content)
     {
+      qInfo() << "Received file" << name << "of" << content.size() << "bytes";
       if (name.isEmpty()) return; //User cancelled
       const QString filename{"/tmp/image." + QFileInfo(name).suffix()};
       QFile file{filename};
-      if (!file.open(QIODevice::WriteOnly)) return;
+      if (!file.open(QIODevice::WriteOnly))
+      {
+        qWarning() << "Cannot write" << filename;
+        return;
+      }
       file.write(content);
       file.close();
       LoadFile(filename.toStdString());
+      qInfo() << "Loaded" << filename << ": regular file:"
+        << fileio::FileIo().IsRegularFile(filename.toStdString())
+        << ", lines of ASCII art:" << ui->text->blockCount();
     }
   );
   #else

@@ -33,6 +33,13 @@ ribi::QtAsciiArterMainDialog::QtAsciiArterMainDialog(QWidget *parent)
 {
   ui->setupUi(this);
 
+  //ASCII art needs a fixed-width font: use one if Courier New is absent,
+  //as is the case in a web browser
+  QFont font{ui->text->font()};
+  font.setStyleHint(QFont::TypeWriter);
+  font.setFixedPitch(true);
+  ui->text->setFont(font);
+
   //Put the dialog in the screen center
   #if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
   const QRect screen = QApplication::desktop()->screenGeometry();

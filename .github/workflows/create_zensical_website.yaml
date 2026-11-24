@@ -44,16 +44,6 @@ jobs:
           git clone --depth 1 https://github.com/richelbilderbeek/DotMatrix ../DotMatrix
           git clone --depth 1 https://github.com/richelbilderbeek/RibiClasses ../RibiClasses
 
-      # Fix the dependencies so that they build with Emscripten:
-      # - DotMatrix befriends boost::checked_delete without 'noexcept',
-      #   which the Emscripten compiler (clang) rejects for recent Boost versions.
-      #   These friend declarations are unused,
-      #   as DotMatrixChar has a public destructor
-      # - CppImageCanvas uses boost::numeric_cast without including its header
-      - name: Fix the dependencies for the WebAssembly build
-        run: |
-          sed -i '/friend void boost::checked_delete/d' ../DotMatrix/dotmatrixchar.h
-          sed -i '1i #include <boost/numeric/conversion/cast.hpp>' ../RibiClasses/CppImageCanvas/imagecanvas.cpp
 
       - name: Get the Boost headers, without the other system headers
         run: |

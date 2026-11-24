@@ -45,6 +45,17 @@ def main():
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(viewport={"width": 1280, "height": 1000})
+        # Qt uses the File System Access API when the browser has it,
+        # which Playwright cannot control. Without it, Qt falls back
+        # to a file input element, which Playwright can fill in
+        page.add_init_script(
+            "window.showOpenFilePicker = undefined;"
+            "const click = HTMLInputElement.prototype.click;"
+            "HTMLInputElement.prototype.click = function () {"
+            "  console.log('Clicked input of type ' + this.type);"
+            "  return click.call(this);"
+            "};"
+        )
         page.on("pageerror", lambda error: errors.append(str(error)))
         page.on("console", lambda m: print(f"console: {m.text}"))
         page.goto(url)

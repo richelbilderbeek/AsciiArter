@@ -27,6 +27,18 @@ def stddev(image):
     return sum(stat.stddev) / len(stat.stddev)
 
 
+def log_picture(image, width=96):
+    """Print a rough ASCII art picture of a screenshot, for debugging."""
+    height = image.height * width // image.width // 2
+    small = image.convert("L").resize((width, height))
+    chars = " .:-=+*#%@"
+    for y in range(height):
+        print("".join(
+            chars[(255 - small.getpixel((x, y))) * (len(chars) - 1) // 255]
+            for x in range(width)
+        ))
+
+
 def main():
     url, image_file, screenshot_file = sys.argv[1:4]
     errors = []
@@ -37,11 +49,16 @@ def main():
         page.on("console", lambda m: print(f"console: {m.text}"))
         page.goto(url)
         frame = page.locator("iframe")
+        app = page.frame_locator("iframe")
 
         def screenshot():
             data = frame.screenshot()
             return Image.open(io.BytesIO(data)).convert("RGB")
 
+        print("Waiting for AsciiArter to be loaded")
+        app.locator("#qtspinner").wait_for(
+            state="hidden", timeout=START_TIMEOUT_SECS * 1000
+        )
         print("Waiting for AsciiArter to show up")
         deadline = time.time() + START_TIMEOUT_SECS
         button = 0.0
@@ -51,7 +68,10 @@ def main():
             print(f"Variation at the 'Load image' button: {button:.1f}")
         assert button >= MIN_STDDEV, "AsciiArter not shown"
         assert not errors, errors
-        empty_text = screenshot().crop(TEXT_AREA)
+        time.sleep(1)
+        shot = screenshot()
+        log_picture(shot)
+        empty_text = shot.crop(TEXT_AREA)
 
         print("Loading an image")
         x = (LOAD_BUTTON[0] + LOAD_BUTTON[2]) // 2
@@ -70,6 +90,7 @@ def main():
             change = stddev(ImageChops.difference(text, empty_text))
             print(f"Change in the text area: {change:.1f}")
         shot.save(screenshot_file)
+        log_picture(shot)
         assert change >= MIN_STDDEV, "No ASCII art shown"
         assert not errors, errors
         browser.close()

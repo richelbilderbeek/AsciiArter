@@ -57,3 +57,5 @@ qtloader.js
 qtlogo.svg
 
 wordlist.dic
+coverage/
+build_*/
